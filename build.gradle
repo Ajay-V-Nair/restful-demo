@@ -1,0 +1,52 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(23)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Spring Boot Web for REST API
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Spring Data JPA for ORM
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// Liquibase for database versioning
+	implementation 'org.liquibase:liquibase-core'
+
+	// H2 Database (In-memory)
+	runtimeOnly 'com.h2database:h2'
+
+	// Lombok (reduces boilerplate code)
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Spring Boot DevTools (for hot reload)
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Test dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
